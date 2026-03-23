@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>HISA Ecosystem Economic Model</title>
+    <style>
+        /* Base & Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+       
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            color: #fff;
+            line-height: 1.5;
+            overflow-x: hidden;
+            background: #0a192f;
+            position: relative;
+            font-size: 16px;
+        }
+       
+        /* Improved mobile touch targets */
+        button,
+        a,
+        .sdg-card,
+        .solution-group {
+            touch-action: manipulation;
+        }
+       
+        /* Optimized Background for Mobile */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(41, 196, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0a192f 0%, #0c2340 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 30s ease infinite;
+            will-change: background-position;
+        }
+       
+        @keyframes gradientShift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+       
+        /* Performance-optimized particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+       
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            animation: float 20s infinite linear;
+            will-change: transform, opacity;
+        }
+       
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+       
+        /* Mobile-first container */
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            position: relative;
+            z-index: 1;
+        }
+       
+        /* Optimized Header for Mobile */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+       
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            animation: headerShine 4s infinite;
+        }
+       
+        @keyframes headerShine {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+       
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #fff, #a8ff78, #78ffd6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+       
+        .header p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            opacity: 0.9;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            line-height: 1.4;
+        }
+       
+        .token-tag {
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+       
+        /* Mobile-optimized token sections */
+        .token-section {
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+            position: relative;
+        }
+       
+        .token-section:nth-child(2) { animation-delay: 0.1s; }
+        .token-section:nth-child(3) { animation-delay: 0.2s; }
+        .token-section:nth-child(4) { animation-delay: 0.3s; }
+        .token-section:nth-child(5) { animation-delay: 0.4s; }
+       
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+       
+        /* Mobile-friendly titles */
+        .token-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            backdrop-filter: blur(8px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+       
+        .token-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            line-height: 1.5;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+       
+        /* Mobile-optimized SDG section titles */
+        .sdg-section-title {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            line-height: 1.3;
+        }
+       
+        /* Mobile-optimized cards */
+        .sdg-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(15px);
+            border-radius: 18px;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+       
+        .sdg-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            opacity: 0.8;
+        }
+       
+        .sdg-card:active {
+            transform: scale(0.98);
+        }
+       
+        /* Mobile-optimized SDG headers */
+        .sdg-header {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+        }
+       
+        .sdg-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+       
+        /* Mobile-optimized problem text */
+        .problem {
+            font-style: italic;
+            color: #ffd166;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            padding: 15px;
+            background: rgba(255, 209, 102, 0.08);
+            border-radius: 10px;
+            border-left: 4px solid rgba(255, 209, 102, 0.5);
+            line-height: 1.4;
+        }
+       
+        /* Mobile-optimized solution groups */
+        .solution-group {
+            margin-bottom: 20px;
+            padding-left: 18px;
+            border-left: 3px solid rgba(168, 255, 120, 0.4);
+            position: relative;
+        }
+       
+        .solution-group::before {
+            content: '▸';
+            position: absolute;
+            left: -12px;
+            color: #a8ff78;
+            font-size: 1.1rem;
+        }
+       
+        .solution-title {
+            font-weight: 600;
+            color: #a8ff78;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            line-height: 1.3;
+        }
+       
+        /* Mobile-optimized mechanism and evidence */
+        .mechanism, .evidence {
+            margin: 10px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            border-left: 4px solid rgba(120, 255, 214, 0.5);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+       
+        .mechanism strong, .evidence strong {
+            color: #78ffd6;
+            font-weight: 600;
+        }
+       
+        .evidence {
+            font-style: italic;
+            color: #e0f7fa;
+            border-left-color: rgba(255, 209, 102, 0.6);
+            background: rgba(255, 209, 102, 0.05);
+        }
+       
+        /* Mobile-friendly scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            color: #a8ff78;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(168, 255, 120, 0.2);
+            cursor: pointer;
+            user-select: none;
+            touch-action: manipulation;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+       
+        .scroll-indicator:active {
+            transform: scale(0.9);
+        }
+       
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+       
+        /* Progress bar for mobile */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+       
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 10px 0;
+        }
+       
+        .nav-buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+       
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            min-width: 60px;
+        }
+       
+        .nav-btn.active {
+            color: #a8ff78;
+            background: rgba(168, 255, 120, 0.1);
+        }
+       
+        .nav-btn:active {
+            transform: scale(0.9);
+        }
+       
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+       
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(102, 126, 234, 0.9);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+       
+        .back-to-top:active {
+            transform: scale(0.9);
+        }
+       
+        /* Mobile-only improvements */
+        @media (max-width: 768px) {
+            /* Reduce animations for better performance */
+            .animated-bg {
+                animation: gradientShift 40s ease infinite;
+            }
+           
+            .header {
+                padding: 30px 15px;
+                margin-bottom: 20px;
+            }
+           
+            .header h1 {
+                font-size: 1.8rem;
+            }
+           
+            .header p {
+                font-size: 1rem;
+            }
+           
+            .container {
+                padding: 12px;
+            }
+           
+            .token-title {
+                font-size: 1.5rem;
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+           
+            .token-intro {
+                font-size: 1rem;
+                padding: 15px;
+                margin-bottom: 25px;
+            }
+           
+            .sdg-section-title {
+                font-size: 1.3rem;
+                padding: 15px;
+                margin: 20px 0;
+            }
+           
+            .sdg-card {
+                padding: 20px 15px;
+                margin-bottom: 15px;
+            }
+           
+            .sdg-header {
+                font-size: 1.2rem;
+                gap: 10px;
+            }
+           
+            .sdg-icon {
+                font-size: 1.1rem;
+            }
+           
+            .problem {
+                font-size: 0.95rem;
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+           
+            .solution-group {
+                padding-left: 16px;
+                margin-bottom: 15px;
+            }
+           
+            .solution-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+           
+            .mechanism, .evidence {
+                padding: 12px;
+                font-size: 0.9rem;
+                margin: 8px 0;
+            }
+           
+            .mobile-nav {
+                display: block;
+            }
+           
+            /* Improve text readability on mobile */
+            p, li, div {
+                text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+            }
+           
+            /* Prevent long words from breaking layout */
+            .sdg-card, .token-title, .sdg-section-title {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                hyphens: auto;
+            }
+           
+            /* Better spacing for stacked content */
+            .token-section {
+                margin-bottom: 40px;
+            }
+        }
+       
+        @media (max-width: 480px) {
+            /* Extra small devices */
+            .header {
+                padding: 25px 12px;
+            }
+           
+            .header h1 {
+                font-size: 1.6rem;
+                line-height: 1.2;
+            }
+           
+            .header p {
+                font-size: 0.95rem;
+            }
+           
+            .token-tag {
+                font-size: 0.8rem;
+                padding: 5px 12px;
+            }
+           
+            .token-title {
+                font-size: 1.3rem;
+                padding: 18px 12px;
+            }
+           
+            .token-intro {
+                font-size: 0.95rem;
+                padding: 12px;
+            }
+           
+            .sdg-section-title {
+                font-size: 1.2rem;
+                padding: 12px;
+            }
+           
+            .sdg-card {
+                padding: 18px 12px;
+                border-radius: 16px;
+            }
+           
+            .sdg-header {
+                font-size: 1.1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+           
+            .sdg-icon {
+                font-size: 1rem;
+            }
+           
+            .problem {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+           
+            .solution-title {
+                font-size: 0.95rem;
+            }
+           
+            .mechanism, .evidence {
+                font-size: 0.85rem;
+                padding: 10px;
+            }
+           
+            .scroll-indicator {
+                width: 45px;
+                height: 45px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 1.3rem;
+            }
+           
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                bottom: 70px;
+                right: 15px;
+            }
+           
+            .nav-btn {
+                min-width: 50px;
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+           
+            .nav-icon {
+                font-size: 1rem;
+            }
+        }
+       
+        @media (max-width: 360px) {
+            /* Very small devices */
+            .header h1 {
+                font-size: 1.4rem;
+            }
+           
+            .token-title {
+                font-size: 1.2rem;
+            }
+           
+            .sdg-header {
+                font-size: 1rem;
+            }
+           
+            .sdg-section-title {
+                font-size: 1.1rem;
+            }
+        }
+       
+        /* Landscape mode optimization */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 20px 15px;
+                margin-bottom: 15px;
+            }
+           
+            .header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+           
+            .header p {
+                font-size: 0.9rem;
+            }
+           
+            .token-title {
+                font-size: 1.3rem;
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+           
+            .token-intro {
+                padding: 10px;
+                margin-bottom: 15px;
+                font-size: 0.9rem;
+            }
+           
+            .sdg-card {
+                padding: 15px 12px;
+                margin-bottom: 10px;
+            }
+           
+            .scroll-indicator,
+            .back-to-top {
+                display: none !important;
+            }
+        }
+       
+        /* Performance optimizations */
+        @media (prefers-reduced-motion: reduce) {
+            .animated-bg,
+            .particle,
+            .header::before,
+            .token-title:hover,
+            .sdg-card:hover,
+            .scroll-indicator,
+            .back-to-top,
+            .nav-btn {
+                animation: none !important;
+                transition: none !important;
+            }
+           
+            .sdg-card:active,
+            .scroll-indicator:active,
+            .back-to-top:active,
+            .nav-btn:active {
+                transform: none !important;
+            }
+        }
+       
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0a192f;
+            }
+        }
+
+        /* Table styles to match theme */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+            color: #a8ff78;
+        }
+
+        td {
+            color: #e0f7fa;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        em {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="particles" id="particles"></div>
+    <div class="progress-bar" id="progressBar"></div>
+   
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ HISA Ecosystem Economic Model</h1>
+            <p>The HISA ecosystem, built on Hedera Hashgraph, integrates four tokens—<strong>JANI</strong>, <strong>UMOJA</strong>, <strong>HISA</strong>, and <strong>CHAT</strong>—to drive financial inclusion, cultural preservation, environmental sustainability, and mental wellness across Africa. This economic model outlines the tokenomics, revenue streams, value accrual mechanisms, and sustainability strategies, aligning with the United Nations Sustainable Development Goals (SDGs).</p>
+        </div>
+       
+        <!-- Tokenomics Section -->
+        <div class="token-section" id="tokenomics">
+            <h2 class="token-title">1. Tokenomics Overview</h2>
+            <p class="token-intro">The HISA ecosystem operates a multi-token model, each with distinct functions to support financial, environmental, wellness, and cultural objectives. The tokens are interoperable, enabling seamless value transfer within the ecosystem.</p>
+           
+            <h3 class="sdg-section-title">Token Specifications</h3>
+           
+            <table>
+                <thead>
+                    <tr>
+                        <th>Token</th>
+                        <th>Symbol</th>
+                        <th>Supply</th>
+                        <th>Type</th>
+                        <th>Primary Functions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>JANI</td>
+                        <td>JANI & JANI STABLE</td>
+                        <td>Dynamic</td>
+                        <td>HTS-20</td>
+                        <td>Conservation rewards, staking, governance, environmental asset backing</td>
+                    </tr>
+                    <tr>
+                        <td>UMOJA</td>
+                        <td>UMOT, UMOS, UMOO</td>
+                        <td>UMOT: 21B, UMOS: Dynamic, UMOO: 210T</td>
+                        <td>HTS-20</td>
+                        <td>Governance, stablecoin, options trading, asset-backed ETF</td>
+                    </tr>
+                    <tr>
+                        <td>HISA</td>
+                        <td>HISA</td>
+                        <td>3B</td>
+                        <td>HTS-20</td>
+                        <td>Staking, governance, wellness rewards, pool participation</td>
+                    </tr>
+                    <tr>
+                        <td>CHAT</td>
+                        <td>CHAT</td>
+                        <td>10B</td>
+                        <td>HTS-20</td>
+                        <td>Cultural asset representation, fractional ownership, royalty distribution</td>
+                    </tr>
+                </tbody>
+            </table>
+           
+            <h3 class="sdg-section-title">JANI Token</h3>
+            <ul>
+                <li><strong>Purpose:</strong> Incentivizes environmental conservation (e.g., reforestation, carbon offsets) and sustainable agriculture.</li>
+                <li><strong>Backing:</strong> Tokenized environmental assets (e.g., trees, water rights, carbon credits).</li>
+                <li><strong>Utility:</strong> Staking for conservation rewards, governance in Conservation DAOs, payments for eco-services.</li>
+                <li><strong>Deflationary Mechanisms:</strong> 0.1% transaction burns, penalty burns for governance violations.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">UMOJA Token</h3>
+            <ul>
+                <li><strong>Purpose:</strong> Drives financial inclusion through tokenized real-world assets (RWAs) and DeFi services.</li>
+                <li><strong>Sub-Tokens:</strong>
+                    <ul>
+                        <li><strong>UMOT (21B):</strong> Governance and ETF-backed (Bitcoin, gold, infrastructure bonds, REITs).</li>
+                        <li><strong>UMOS (Dynamic):</strong> Stablecoin for transactions, backed by 10% Bitcoin, 20% gold, 40% HBAR-USDC, 30% Kenyan bonds.</li>
+                        <li><strong>UMOO (210T):</strong> Options trading and ecosystem gas fees, with token burning on exercise/expiry.</li>
+                    </ul>
+                </li>
+                <li><strong>Utility:</strong> DAO voting, DeFi trading, SME capital access via Umoja Central Securities Exchange (UCSE).</li>
+                <li><strong>Deflationary Mechanisms:</strong> UMOO burns, UMOT staking lockups, fee-based buybacks.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">HISA Token</h3>
+            <ul>
+                <li><strong>Purpose:</strong> Integrates financial inclusion, mental wellness, and SDG-aligned rewards.</li>
+                <li><strong>Utility:</strong> Staking for rewards, governance in HISA DAOs, payments for wellness services, pool participation.</li>
+                <li><strong>Deflationary Mechanisms:</strong> 0.1% transaction burns, variable pool fees (0.1–0.8%), penalty burns for governance violations.</li>
+                <li><strong>Accessibility:</strong> USSD/SSD support for 350 million feature phone users.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">CHAT Token</h3>
+            <ul>
+                <li><strong>Purpose:</strong> Preserves African cultural heritage through tokenized assets and community governance.</li>
+                <li><strong>Utility:</strong> Fractional ownership of cultural NFTs, royalty payments, governance in Cultural Validator Councils, access to premium content.</li>
+                <li><strong>Deflationary Mechanisms:</strong> 5% transaction royalties fund conservation, staking lockups for validators.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Interoperability</h3>
+            <ul>
+                <li><strong>Cross-Token Swaps:</strong> On-chain swap layer enables conversions (e.g., CHAT to UMOJA for savings, JANI to HISA for wellness).</li>
+                <li><strong>SDG Integration:</strong> Actions like tree planting (JANI) or cultural uploads (CHAT) earn multiple tokens, enhancing user incentives.</li>
+                <li><strong>Liquidity Pools:</strong> AI-managed pools (e.g., HISA-USDC, JANI-USDC) ensure liquidity and yield generation.</li>
+            </ul>
+        </div>
+       
+        <!-- Revenue Section -->
+        <div class="token-section" id="revenue">
+            <h2 class="token-title">2. Revenue Streams</h2>
+            <p class="token-intro">The HISA ecosystem generates revenue through diversified streams, ensuring sustainability and reinvestment into community initiatives.</p>
+           
+            <table>
+                <thead>
+                    <tr>
+                        <th>Revenue Stream</th>
+                        <th>Description</th>
+                        <th>Est. % of Total Revenue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tokenization as a Service (TaaS)</td>
+                        <td>Fees for tokenizing RWAs (land, cultural assets, crops)</td>
+                        <td>20%</td>
+                    </tr>
+                    <tr>
+                        <td>Transaction & Pool Fees</td>
+                        <td>Trading, staking, and liquidity provisioning fees (0.1–0.8%)</td>
+                        <td>20%</td>
+                    </tr>
+                    <tr>
+                        <td>ETF & Vault Fees</td>
+                        <td>Entry/performance fees for UMOJA ETFs and AI vaults</td>
+                        <td>15%</td>
+                    </tr>
+                    <tr>
+                        <td>Options Premiums (UMOO)</td>
+                        <td>Fees from options trading and early withdrawal penalties</td>
+                        <td>15%</td>
+                    </tr>
+                    <tr>
+                        <td>Cultural Licensing (CHAT)</td>
+                        <td>Royalties from NFT sales and premium content access</td>
+                        <td>15%</td>
+                    </tr>
+                    <tr>
+                        <td>Analytics Subscriptions</td>
+                        <td>Premium AI-driven market and wellness analytics</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td>Treasury Investments</td>
+                        <td>Returns from staking, bonds, and RWA appreciation</td>
+                        <td>5%</td>
+                    </tr>
+                </tbody>
+            </table>
+           
+            <h3 class="sdg-section-title">Key Revenue Drivers</h3>
+            <ul>
+                <li><strong>TaaS:</strong>  listing fees + 1% yield sharing for tokenized assets (e.g., land, cultural NFTs).</li>
+                <li><strong>Transaction Fees:</strong> Dynamic AI-adjusted fees optimize liquidity and user engagement.</li>
+                <li><strong>Cultural Licensing:</strong> 5% royalties on CHAT NFT secondary sales, with 70% to creators, 20% to treasury, 10% to partners.</li>
+                <li><strong>AI Vaults:</strong> 10–15% APY on staked assets, with 10% performance fees to the ecosystem.</li>
+            </ul>
+        </div>
+       
+        <!-- Value Accrual Section -->
+        <div class="token-section" id="value">
+            <h2 class="token-title">3. Value Accrual Mechanisms</h2>
+            <p class="token-intro">The ecosystem ensures long-term value capture through deflationary and growth-oriented strategies.</p>
+           
+            <h3 class="sdg-section-title">Deflationary Pressure:</h3>
+            <ul>
+                <li><strong>Token Burns:</strong> JANI (0.1% transaction burns), UMOO (burns on exercise/expiry), HISA (0.1% transaction burns), CHAT (5% royalty burns).</li>
+                <li><strong>Staking Lockups:</strong> Temporary removal of JANI, UMOT, HISA, and CHAT tokens via staking.</li>
+                <li><strong>Fee Buybacks:</strong> Treasury uses transaction fees to buy back and burn tokens, reducing supply.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Value Growth:</h3>
+            <ul>
+                <li><strong>Asset Appreciation:</strong> JANI (environmental assets), UMOJA (Bitcoin, gold, bonds), and CHAT (cultural NFTs) gain value with market demand.</li>
+                <li><strong>Treasury Reinvestment:</strong> Revenue reinvested into yield-generating assets (e.g., bonds, staking) and community projects.</li>
+                <li><strong>Network Effects:</strong> Increased user adoption (350M feature phone users via USSD) drives demand for tokens and services.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Incentive Alignment:</h3>
+            <ul>
+                <li><strong>Governance Rewards:</strong> Staked tokens (JANI, UMOT, HISA, CHAT) earn voting rights and revenue sharing.</li>
+                <li><strong>Community Funds:</strong> 60% of CHAT distribution and 50% of JANI rewards fund community-led conservation and cultural initiatives.</li>
+                <li><strong>Yield Optimization:</strong> AI-managed vaults dynamically rebalance assets to maximize returns (8–15% APY).</li>
+            </ul>
+        </div>
+       
+        <!-- Sustainability Section -->
+        <div class="token-section" id="sustainability">
+            <h2 class="token-title">4. Economic Sustainability</h2>
+            <p class="token-intro">The HISA ecosystem is designed for long-term sustainability, balancing growth, inclusion, and stability.</p>
+           
+            <h3 class="sdg-section-title">Scalability:</h3>
+            <ul>
+                <li>Hedera’s high-throughput (10,000+ TPS) and low-cost transactions support mass adoption.</li>
+                <li>USSD/SSD integration ensures accessibility for feature phone users, expanding the user base.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Stability Mechanisms:</h3>
+            <ul>
+                <li><strong>Stablecoin Pegs:</strong> UMOS and JANI STABLE maintain stability via diversified backing (Bitcoin, gold, bonds, USDC).</li>
+                <li><strong>Overcollateralization:</strong> 150–200% collateral for DeFi loans, with automated liquidation at 100–110% LTV.</li>
+                <li><strong>Circuit Breakers:</strong> Trading halts on 15–20% TVL drops to mitigate volatility.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Community Reinvestment:</h3>
+            <ul>
+                <li><strong>Conservation Funds:</strong> JANI and CHAT allocate 50–60% of tokens to environmental and cultural preservation.</li>
+                <li><strong>DAO Governance:</strong> Community-driven decisions ensure equitable resource allocation.</li>
+                <li><strong>Education & Training:</strong> CHAT Academy and HISA’s financial literacy modules enhance user capacity.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Regulatory Compliance:</h3>
+            <ul>
+                <li>Adheres to Kenya’s  Finance Act, KRA, and CMA standards for tax and securities compliance.</li>
+                <li>GDPR-compliant data protection and ZK-KYC for privacy-preserving onboarding.</li>
+                <li>Partnerships with NSE, Safaricom, and museums ensure institutional legitimacy.</li>
+            </ul>
+        </div>
+       
+        <!-- Additional Sections -->
+        <div class="token-section">
+            <h2 class="token-title">5. Economic Impact Projections</h2>
+           
+            <h3 class="sdg-section-title">Year 1 Targets</h3>
+            <ul>
+                <li><strong>User Adoption:</strong> 1M users, including 500K via USSD.</li>
+                <li><strong>Assets Tokenized:</strong> 1,000+ RWAs (land, crops, cultural assets).</li>
+                <li><strong>Revenue:</strong>  TaaS, transaction fees, and licensing.</li>
+                <li><strong>Community Funding:</strong> $100K allocated to conservation and cultural initiatives.</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">5-Year Vision</h3>
+            <ul>
+                <li><strong>User Base:</strong> 50M users, with 20M feature phone users.</li>
+                <li><strong>Total Value Locked (TVL):</strong> $500M across liquidity pools.</li>
+                <li><strong>Revenue:</strong> $10M annually from diversified streams.</li>
+                <li><strong>SDG Impact:</strong> 10M+ conservation actions (JANI), 100K+ cultural assets tokenized (CHAT), 5M+ DeFi participants (UMOJA, HISA).</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">6. Competitive Advantages</h2>
+            <ul>
+                <li><strong>Inclusive Access:</strong> USSD/SSD support for 350M feature phone users, unmatched by traditional financial systems.</li>
+                <li><strong>Multi-Token Synergy:</strong> Interoperable tokens (JANI, UMOJA, HISA, CHAT) create a holistic ecosystem addressing 16 SDGs.</li>
+                <li><strong>AI Optimization:</strong> Agentic AI enhances liquidity, risk management, and wellness tracking, outperforming static DeFi protocols.</li>
+                <li><strong>Cultural & Environmental Focus:</strong> Unique integration of cultural preservation (CHAT) and conservation (JANI) with financial inclusion.</li>
+                <li><strong>Regulatory Alignment:</strong> Compliance with Kenyan and international standards ensures trust and scalability.</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">7. Risks and Mitigations</h2>
+            <ul>
+                <li><strong>Volatility Risk:</strong> Mitigated by stablecoin pegs, AI-driven rebalancing, and insurance pools.</li>
+                <li><strong>Adoption Risk:</strong> Addressed through USSD accessibility, community ambassador programs, and partnerships (e.g., Safaricom, NSE).</li>
+                <li><strong>Security Risk:</strong> Hedera’s enterprise-grade security, ZK-proofs, and multi-signature wallets protect against breaches.</li>
+                <li><strong>Cultural Sensitivity Risk:</strong> CHAT’s Validator Councils and ethical guidelines prevent appropriation and ensure community control.</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Conclusion</h2>
+            <p>The HISA ecosystem’s economic model leverages a multi-token framework, diversified revenue streams, and AI-driven optimization to create a sustainable, inclusive digital economy for Africa. By aligning with 16 SDGs, it addresses financial exclusion, environmental degradation, cultural loss, and mental health gaps, positioning HISA as a transformative force for prosperity and resilience.</p>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Technical Innovation Stack</h2>
+           
+            <h3 class="sdg-section-title">Hedera-Based Infrastructure</h3>
+            <p>Enterprise-Grade Security: ABFT (Asynchronous Byzantine Fault Tolerance) providing bank-level security for all HISA protocols</p>
+            <p>Energy Efficiency: 0.00017 kWh per transaction (99.99% more efficient than Bitcoin) supporting SDG 7 (Clean Energy)</p>
+            <p>High Throughput: 10,000+ TPS enabling mass adoption across rural Africa</p>
+            <p>Low Transaction Costs: Sub-cent fees making micro-transactions viable for rural communities</p>
+            <p>Utility Token Custody: Secure custodianship of JANI, UMOJA, and CULTURE tokens through Hedera's enterprise infrastructure</p>
+            <p>Regulatory Compliance: Enterprise-grade governance structure aligned with global financial regulations</p>
+            <ul>
+                <li><strong>Carbon-Negative Operations</strong>: Addressing SDG 7 (Clean Energy) through sustainable blockchain technology</li>
+                <li><strong>High Throughput</strong>: 10,000+ TPS enabling mass adoption across rural Africa</li>
+                <li><strong>Low Transaction Costs</strong>: Sub-cent fees making micro-transactions viable</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Multi-Channel Accessibility</h3>
+            <ul>
+                <li><strong>USSD Integration</strong>: Feature phone compatibility for offline communities</li>
+                <li><strong>Voice Interfaces</strong>: Audio-based interactions for illiterate populations</li>
+                <li><strong>Mobile-First Design</strong>: Optimized for low-bandwidth environments</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Agentic AI Integration</h3>
+            <ul>
+                <li><strong>Impact Measurement</strong>: Real-time SDG progress tracking and verification</li>
+                <li><strong>Resource Allocation</strong>: AI-driven distribution of funds to highest-impact initiatives</li>
+                <li><strong>Predictive Analytics</strong>: Forecasting environmental and economic outcomes</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Economic Model</h2>
+           
+            <h3 class="sdg-section-title">Token Economics</h3>
+            <ul>
+                <li><strong>JANI Token</strong>: Rewards for environmental conservation activities</li>
+                <li><strong>UMOJA Token</strong>: Governance and staking in financial protocols</li>
+                <li><strong>CULTURE Token</strong>: Incentives for cultural preservation and education</li>
+                <li><strong>Cross-Protocol Utility</strong>: Tokens interoperable across all HISA branches</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Sustainable Revenue Streams</h3>
+            <ul>
+                <li><strong>Transaction Fees</strong>: Minimal fees on all protocol interactions</li>
+                <li><strong>Staking Rewards</strong>: Validators earn based on verified impact contributions</li>
+                <li><strong>NFT Royalties</strong>: Ongoing revenue from cultural and environmental asset trading</li>
+                <li><strong>Carbon Credits</strong>: Monetization of verified CO₂ sequestration</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Implementation Strategy</h2>
+           
+            <h3 class="sdg-section-title">Phase 1: Foundation (Months 1-12)</h3>
+            <ul>
+                <li>Launch JANI HISA with basic tree planting and water infrastructure</li>
+                <li>Deploy Terra Farms pilot programs in 3 Kenyan counties</li>
+                <li>Establish CFA partnerships and validator networks</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Phase 2: Expansion (Months 13-24)</h3>
+            <ul>
+                <li>Roll out UMOJA HISA fractional asset tokenization</li>
+                <li>Launch CULTURE HISA with initial CHAT collections</li>
+                <li>Integrate AI-powered impact measurement systems</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Phase 3: Scale (Months 25-36)</h3>
+            <ul>
+                <li>Pan-African expansion across 10 countries</li>
+                <li>Full multi-protocol interoperability</li>
+                <li>Advanced governance features and elder council integration</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Impact Measurement</h2>
+           
+            <h3 class="sdg-section-title">Quantifiable Metrics</h3>
+            <ul>
+                <li><strong>Trees Planted</strong>: Target 10 million trees with verified GPS coordinates</li>
+                <li><strong>Water Access</strong>: 1,000 boreholes serving 500,000 people</li>
+                <li><strong>Financial Inclusion</strong>: 1 million users accessing tokenized assets</li>
+                <li><strong>Cultural Preservation</strong>: 10,000 digitized cultural artifacts</li>
+                <li><strong>Carbon Sequestration</strong>: 1 million tons CO₂ offset annually</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Transparency Mechanisms</h3>
+            <ul>
+                <li><strong>On-Chain Verification</strong>: All impact data immutably recorded</li>
+                <li><strong>Community Auditing</strong>: Local validators verify environmental claims</li>
+                <li><strong>Third-Party Monitoring</strong>: Integration with satellite imagery and IoT sensors</li>
+                <li><strong>Real-Time Dashboards</strong>: Public access to all impact metrics</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Governance Structure</h2>
+           
+            <h3 class="sdg-section-title">Hybrid Model</h3>
+            <ul>
+                <li><strong>Technical DAOs</strong>: Blockchain-based voting for protocol upgrades</li>
+                <li><strong>Cultural Councils</strong>: Traditional elder involvement in cultural decisions</li>
+                <li><strong>Community Assemblies</strong>: Local governance for resource allocation</li>
+                <li><strong>Multi-Stakeholder Participation</strong>: Integration of governments, NGOs, and private sector</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Anti-Corruption Measures</h3>
+            <ul>
+                <li><strong>Transparent Fund Flows</strong>: All transactions publicly auditable</li>
+                <li><strong>Quadratic Voting</strong>: Preventing plutocratic control</li>
+                <li><strong>Community Oversight</strong>: Local validation of all activities</li>
+                <li><strong>Smart Contract Automation</strong>: Reducing human intervention in fund distribution</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Kenyan Legal and Regulatory Compliance</h2>
+           
+            <h3 class="sdg-section-title">Finance Bill 2024 Compliance</h3>
+            <ul>
+                <li><strong>Digital Asset Taxation</strong>: Automated 15% withholding tax on digital asset transactions</li>
+                <li><strong>Capital Gains Tax</strong>: Automated 5% CGT on asset transfers</li>
+                <li><strong>VAT on Digital Services</strong>: 16% VAT automation for all digital platform transactions</li>
+                <li><strong>Income Tax Integration</strong>: Real-time PAYE deduction for validator rewards and staking income</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Tax Automation Systems</h3>
+            <ul>
+                <li><strong>KRA iTax Integration</strong>: Direct API connection for automated tax filing</li>
+                <li><strong>Real-Time Tax Calculation</strong>: Smart contracts computing taxes on every transaction</li>
+                <li><strong>Compliance Reporting</strong>: Automated generation of monthly and annual tax returns</li>
+                <li><strong>Audit Trail</strong>: Immutable blockchain records for KRA verification</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Central Bank of Kenya (CBK) Compliance</h3>
+            <ul>
+                <li><strong>Digital Currency Regulations</strong>: Full compliance with CBK digital asset guidelines</li>
+                <li><strong>Anti-Money Laundering (AML)</strong>: Built-in transaction monitoring and suspicious activity reporting</li>
+                <li><strong>Know Your Customer (KYC)</strong>: Integrated identity verification for all users</li>
+                <li><strong>Foreign Exchange Controls</strong>: Automated compliance with forex transaction limits</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Capital Markets Authority (CMA) Alignment</h3>
+            <ul>
+                <li><strong>Securities Tokenization</strong>: Compliance with CMA guidelines for digital securities</li>
+                <li><strong>Investor Protection</strong>: Built-in investor education and risk disclosure mechanisms</li>
+                <li><strong>Market Conduct</strong>: Automated prevention of market manipulation and insider trading</li>
+                <li><strong>Licensing Requirements</strong>: Full compliance with investment advisor and broker-dealer regulations</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Data Protection and Privacy</h3>
+            <ul>
+                <li><strong>Data Protection Act 2019</strong>: Full compliance with personal data handling requirements</li>
+                <li><strong>Cross-Border Data Transfers</strong>: Adherence to data localization and transfer regulations</li>
+                <li><strong>User Consent Management</strong>: Blockchain-based consent tracking and management</li>
+                <li><strong>Data Breach Notification</strong>: Automated reporting to Data Protection Commissioner</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Environmental Law Compliance</h3>
+            <ul>
+                <li><strong>Environmental Impact Assessment</strong>: Automated EIA reporting for all environmental projects</li>
+                <li><strong>Water Resource Management</strong>: Compliance with Water Act 2016 for borehole drilling</li>
+                <li><strong>Forest Conservation</strong>: Alignment with Forest Conservation and Management Act 2016</li>
+                <li><strong>Climate Change Act</strong>: Integration with National Climate Change Framework</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Financial Inclusion and Consumer Protection</h3>
+            <ul>
+                <li><strong>Microfinance Act Compliance</strong>: Full adherence to microfinance regulations</li>
+                <li><strong>Consumer Protection</strong>: Built-in dispute resolution and consumer rights mechanisms</li>
+                <li><strong>Financial Literacy</strong>: Mandatory financial education before investment participation</li>
+                <li><strong>Vulnerable Group Protection</strong>: Enhanced safeguards for elderly and low-income users</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Legal Framework Integration</h3>
+            <ul>
+                <li><strong>Smart Contract Legal Recognition</strong>: Alignment with Kenya's Electronic Transactions Act</li>
+                <li><strong>Dispute Resolution</strong>: Integration with Kenya Commercial Court and arbitration systems</li>
+                <li><strong>Contract Enforcement</strong>: Automated execution within Kenyan contract law</li>
+                <li><strong>Intellectual Property</strong>: Protection of cultural heritage under Kenya's IP laws</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Automated Compliance Features</h3>
+            <ul>
+                <li><strong>Transaction Monitoring</strong>: Real-time compliance checking on all transactions</li>
+                <li><strong>Regulatory Reporting</strong>: Automated generation of all required regulatory reports</li>
+                <li><strong>Compliance Dashboard</strong>: Real-time monitoring of regulatory requirements</li>
+                <li><strong>Legal Update Integration</strong>: Automatic adjustment to new regulatory requirements</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Partnership Ecosystem</h2>
+           
+            <h3 class="sdg-section-title">Government Integration</h3>
+            <ul>
+                <li><strong>Regulatory Compliance</strong>: Working within existing legal frameworks</li>
+                <li><strong>Policy Advocacy</strong>: Supporting blockchain-friendly legislation</li>
+                <li><strong>Public-Private Partnerships</strong>: Collaborative implementation with government agencies</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">International Collaboration</h3>
+            <ul>
+                <li><strong>UN Partnership</strong>: Alignment with official SDG reporting mechanisms</li>
+                <li><strong>Climate Finance</strong>: Integration with carbon credit markets</li>
+                <li><strong>Development Banks</strong>: Partnership with World Bank and African Development Bank</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Risk Mitigation</h2>
+           
+            <h3 class="sdg-section-title">Technical Risks</h3>
+            <ul>
+                <li><strong>Scalability</strong>: Hedera's proven infrastructure handles mass adoption</li>
+                <li><strong>Security</strong>: Multi-signature wallets and formal verification</li>
+                <li><strong>Interoperability</strong>: Cross-chain bridges for ecosystem connectivity</li>
+            </ul>
+           
+            <h3 class="sdg-section-title">Regulatory Risks</h3>
+            <ul>
+                <li><strong>Compliance</strong>: Proactive engagement with regulatory authorities</li>
+                <li><strong>Legal Framework</strong>: Operating within existing securities and environmental laws</li>
+                <li><strong>Community Acceptance</strong>: Extensive stakeholder consultation</li>
+            </ul>
+        </div>
+       
+        <div class="token-section">
+            <h2 class="token-title">Conclusion</h2>
+            <p>HISA People Chain represents a paradigm shift in sustainable development implementation, moving from traditional aid models to economically sustainable, blockchain-incentivized systems. By addressing all 17 SDGs through integrated environmental, financial, and cultural protocols, HISA creates a comprehensive framework for African development that is both technologically advanced and culturally appropriate.</p>
+            <p>The ecosystem's success depends on community ownership, transparent governance, and measurable impact delivery. Through tokenized incentives, AI-powered optimization, and multi-stakeholder collaboration, HISA transforms sustainable development from a cost center into a profitable, scalable, and replicable model for global impact.</p>
+        </div>
+    </div>
+   
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <div class="nav-buttons">
+            <button class="nav-btn active" data-target="tokenomics">
+                <span class="nav-icon">🔑</span>
+                <span>Tokenomics</span>
+            </button>
+            <button class="nav-btn" data-target="revenue">
+                <span class="nav-icon">💰</span>
+                <span>Revenue</span>
+            </button>
+            <button class="nav-btn" data-target="value">
+                <span class="nav-icon">📈</span>
+                <span>Value</span>
+            </button>
+            <button class="nav-btn" data-target="sustainability">
+                <span class="nav-icon">🌿</span>
+                <span>Sustainability</span>
+            </button>
+        </div>
+    </nav>
+   
+    <div class="scroll-indicator" id="scrollIndicator">↓</div>
+    <button class="back-to-top" id="backToTop">↑</button>
+    <script>
+        // Mobile optimization script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create optimized particles for mobile
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 15 : 25; // Fewer particles on mobile
+           
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+               
+                const size = Math.random() * 4 + 1; // Smaller particles on mobile
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+               
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 15 + 20; // Slower on mobile for performance
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+               
+                particlesContainer.appendChild(particle);
+            }
+           
+            // Scroll progress bar
+            const progressBar = document.getElementById('progressBar');
+           
+            function updateProgressBar() {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercentage = (scrollTop / scrollHeight) * 100;
+               
+                progressBar.style.width = `${scrollPercentage}%`;
+               
+                // Show/hide back to top button
+                const backToTop = document.getElementById('backToTop');
+                if (scrollTop > 500) {
+                    backToTop.style.display = 'flex';
+                } else {
+                    backToTop.style.display = 'none';
+                }
+               
+                // Update active nav button based on scroll position
+                updateActiveNav();
+            }
+           
+            window.addEventListener('scroll', updateProgressBar);
+           
+            // Scroll to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+           
+            // Mobile navigation
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const tokenSections = document.querySelectorAll('.token-section');
+           
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                   
+                    if (targetSection) {
+                        // Update active button
+                        navButtons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+                       
+                        // Scroll to section
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+           
+            // Update active nav button based on scroll position
+            function updateActiveNav() {
+                const scrollPosition = window.scrollY + 100;
+               
+                tokenSections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                   
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        const sectionId = section.id;
+                        navButtons.forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.getAttribute('data-target') === sectionId) {
+                                btn.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+           
+            // Mobile menu toggle
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            scrollIndicator.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+           
+            // Touch optimization for cards
+            const cards = document.querySelectorAll('.sdg-card');
+            cards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+               
+                card.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+           
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+           
+            // Optimize for mobile performance
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateProgressBar();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+           
+            // Load initial state
+            updateProgressBar();
+           
+            // Add mobile viewport meta tag dynamically
+            const viewport = document.querySelector('meta[name="viewport"]');
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover');
+           
+            // Handle orientation change
+            let orientationTimeout;
+            window.addEventListener('orientationchange', function() {
+                clearTimeout(orientationTimeout);
+                orientationTimeout = setTimeout(function() {
+                    window.scrollTo(0, 0);
+                    updateProgressBar();
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
