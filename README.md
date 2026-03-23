@@ -239,19 +239,7 @@ Hedera serves as the **trust layer of the internet** underpinning all methodolog
 
 ---
 
-## Testnet Resources
 
-| Asset | Token ID / Topic ID |
-|-------|---------------------|
-| JANI Token | `0.0.7145233` |
-| UMOJA Token | `0.0.7145267` |
-| CHAT Token | `0.0.7145306` |
-| HISA Token | `0.0.7145322` |
-| Proof of Growth Topic | `0.0.7145347` |
-| Governance Topic | `0.0.7145447` |
-| UCSE Topic | `0.0.7145448` |
-
-🔍 [View all on HashScan](https://hashscan.io)
 
 ---
 
@@ -264,41 +252,82 @@ Hedera serves as the **trust layer of the internet** underpinning all methodolog
 - Hedera testnet account — [portal.hedera.com](https://portal.hedera.com)
 - HashPack wallet for testing
 
-### Installation
+### 1. Clone the Repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/DeGrones/HISA-PEOPLES-CHAIN.git
 cd HISA-PEOPLES-CHAIN
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
-# Add your Hedera credentials to .env
-
-# Run development server
-npm run dev
 ```
 
-### Frontend (Hosted — Recommended)
+### 2. Backend Setup (`hisa-backend`)
 
 ```bash
-# Hosted version (no setup required)
-# Visit: https://hisa-chain-dapp.vercel.app/
-
-# Or clone the frontend repo directly
-git clone https://github.com/Drekahshi/HISA-CHAIN-Dapp.git
+cd hisa-backend
+npm install
+cp .env.example .env
+# Fill in your Hedera credentials, MongoDB URI, and API keys
 ```
+
+```bash
+# Development mode (auto-restart via nodemon)
+npm run dev
+
+# Production mode
+npm start
+```
+
+### 3. Frontend Setup (`front end/hisa-Dapp`)
+
+```bash
+cd "front end/hisa-Dapp"
+npm install
+cp .env.example .env
+# Add RPC endpoints and backend URL
+```
+
+```bash
+# Development mode (runs on port 9002)
+npm run dev
+
+# Optional: Genkit AI development server
+npm run genkit:dev
+
+# Production build
+npm run build && npm start
+```
+
+### 4. Running Both Together
+
+Open two terminal windows:
+
+```bash
+# Terminal 1 — Backend
+cd hisa-backend && npm run dev
+
+# Terminal 2 — Frontend
+cd "front end/hisa-Dapp" && npm run dev
+```
+
+Then open `http://localhost:9002` in your browser.
 
 ### Environment Variables
 
 ```env
+# hisa-backend/.env
 HEDERA_NETWORK=testnet
 MY_ACCOUNT_ID=0.0.xxxxx
 MY_PRIVATE_KEY=302e0201...
+MONGODB_URI=your_mongo_uri
 ```
+
+### Hosted Version (No Setup Required)
+
+🌐 [hisa-chain-dapp.vercel.app](https://hisa-chain-dapp.vercel.app/)
+
+### Common Issues
+
+- **Port conflict on 9002** — Next.js will prompt to use another port, or update the script in `package.json`
+- **Backend won't start** — Check your `.env` database connection string
 
 ---
 
@@ -306,17 +335,14 @@ MY_PRIVATE_KEY=302e0201...
 
 ```
 HISA-PEOPLES-CHAIN/
-├── src/
-│   ├── components/     # React UI components
-│   ├── pages/          # Next.js pages
-│   ├── hooks/          # Custom React hooks
-│   ├── utils/          # Helper functions
-│   ├── hedera/         # Hedera SDK interactions
-│   └── styles/         # Tailwind CSS
-├── public/             # Static assets
-├── docs/               # Documentation
-├── .env.example        # Environment template
-└── package.json        # Dependencies
+├── hisa-backend/           # Node.js/Express backend
+│   ├── .env.example        # Environment template
+│   └── package.json
+├── front end/
+│   └── hisa-Dapp/          # Next.js frontend with Tailwind + Genkit AI
+│       ├── .env.example
+│       └── package.json
+└── README.md
 ```
 
 ---
@@ -372,7 +398,7 @@ We welcome contributions from developers, conservationists, and community member
 
 ## License
 
-MIT ©  HISA ECOSYSTEM — see [LICENSE](LICENSE) for details.
+MIT © HISA ECOSYSTEM — see [LICENSE](LICENSE) for details.
 
 ---
 
