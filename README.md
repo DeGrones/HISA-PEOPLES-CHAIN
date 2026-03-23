@@ -159,7 +159,7 @@ Hedera serves as the **trust layer of the internet** underpinning all methodolog
 | **Hedera Guardian** | Defines and enforces conservation methodology rules; issues verifiable credentials per action |
 | **Hedera Consensus Service (HCS)** | Immutable timestamping of every verification event; full audit trail for carbon accounting |
 | **Hedera Token Service (HTS)** | Mints JANI tokens backed by verified conservation; enables fractional and transferable ownership |
-| **Hedera Smart Contracts** | Automates reward distribution, royalty payments, DAO treasury governance |
+| **Hedera Smart Contracts and hedera scheduled service** | Automates reward distribution, royalty payments, DAO treasury governance |
 | **Hedera SDK & ADK** | Powers developer integrations and AI verification agent orchestration |
 
 ---
