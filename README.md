@@ -216,7 +216,7 @@ Hedera serves as the **trust layer of the internet** underpinning all methodolog
 
 | Category | Technology | Purpose |
 |----------|------------|---------|
-| **Blockchain** | Hedera HTS, HCS, Smart Contracts, Guardian | Token minting, timestamping, methodology enforcement |
+| **Blockchain** | Hedera HTS,HSS, HCS, Smart Contracts, Guardian | Token minting, timestamping, methodology enforcement |
 | **SDK / ADK** | Hedera JavaScript SDK, Agent Development Kit | Blockchain interactions, AI agent orchestration |
 | **Frontend** | Next.js, React, Tailwind CSS | Web application and UI |
 | **Wallets** | HashPack, MetaMask | Hedera-native and EVM-compatible wallet support |
